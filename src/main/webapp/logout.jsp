@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Logout</title>
 </head>
 <body>
 <h1>Logged out successfully</h1>

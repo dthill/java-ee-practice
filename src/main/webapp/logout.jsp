@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Landing Page</title>
+    <title>JSP - Hello World</title>
 </head>
 <body>
-<h1>Landing Page</h1>
+<h1>Logged out successfully</h1>
+</h1>
 <br/>
-<a href="dashboard.jsp">Dashboard</a>
 </body>
 </html>

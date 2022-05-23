@@ -7,6 +7,9 @@
 <body>
 <h1>Landing Page</h1>
 <br/>
-<a href="dashboard.jsp">Dashboard</a>
+<ol>
+    <li><a href="dashboard.jsp">Dashboard</a></li>
+    <li><a href="products.jsp">Search Products</a></li>
+</ol>
 </body>
 </html>

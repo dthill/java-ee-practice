@@ -1,9 +1,15 @@
 package pgfsd.login;
 
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import pgfsd.bean.User;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "LoginController", value = "/login-controller")
@@ -14,23 +20,22 @@ public class LoginController extends HttpServlet {
         RequestDispatcher dispatcher;
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        LoginService loginService = new LoginService();
         HttpSession session = request.getSession();
-        if(checkCredentials(email,password)){
-            session.setAttribute("email", email);
+        if (loginService.checkCredentials(user)) {
+            session.setAttribute("email", user.getEmail());
             dispatcher = request.getRequestDispatcher("dashboard.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } else {
             dispatcher = request.getRequestDispatcher("login.jsp");
             session.invalidate();
             request.setAttribute("error", "Email or password are not correct");
-            dispatcher.include(request,response);
+            dispatcher.include(request, response);
         }
     }
 
-    private boolean checkCredentials(String email, String password){
-        return email != null
-                && password != null
-                && email.equalsIgnoreCase("test@test.com")
-                && password.equals("test");
-    }
+
 }

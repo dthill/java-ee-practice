@@ -13,20 +13,20 @@
     }
 </style>
 <body>
-    <form action="login-controller" method="post">
-        <h1>Login</h1>
-        <label for="email"></label>
-        <input type="email" name="email" id="email" placeholder="email">
-        <label for="password"></label>
-        <input type="password" name="password" id="password" placeholder="password">
-        <%
-            String error = (String) request.getAttribute("error");
-            if(error != null){
-            out.print("<span class=\"error\">"+ error +"</span>");
+<form action="login-controller" method="post">
+    <h1>Login</h1>
+    <label for="email"></label>
+    <input type="email" name="email" id="email" placeholder="email">
+    <label for="password"></label>
+    <input type="password" name="password" id="password" placeholder="password">
+    <%
+        String error = (String) request.getAttribute("error");
+        if (error != null) {
+            out.print("<span class=\"error\">" + error + "</span>");
         }
-        %>
-        <span class="error"></span>
-        <input type="submit" value="Login">
-    </form>
+    %>
+    <span class="error"></span>
+    <input type="submit" value="Login">
+</form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package pgfsd.bean;
+package pgfsd.dto;
 
 public class SearchTerm {
     private String searchTerm;

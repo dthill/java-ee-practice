@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Dashboard</h1>
-<h2>Welcome <%= session.getAttribute("email") %></h2>
+<h2>Welcome <%= session.getAttribute("email") %>
+</h2>
 <a href="logout-controller">Logout</a>
 </body>
 </html>

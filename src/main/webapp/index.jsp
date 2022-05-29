@@ -9,7 +9,7 @@
 <br/>
 <ol>
     <li><a href="dashboard.jsp">Dashboard</a></li>
-    <li><a href="products.jsp">Search Products</a></li>
+    <li><a href="products.jsp">Manage Products</a></li>
 </ol>
 </body>
 </html>

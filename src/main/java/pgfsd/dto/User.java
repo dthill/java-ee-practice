@@ -1,4 +1,4 @@
-package pgfsd.bean;
+package pgfsd.dto;
 
 public class User {
     private String email;

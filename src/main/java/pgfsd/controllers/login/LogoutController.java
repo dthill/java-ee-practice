@@ -1,4 +1,4 @@
-package pgfsd.login;
+package pgfsd.controllers.login;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,7 +1,8 @@
-package pgfsd.login;
+package pgfsd.controllers.login;
 
 
-import pgfsd.bean.User;
+import pgfsd.dto.User;
+import pgfsd.services.login.LoginService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

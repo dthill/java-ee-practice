@@ -1,6 +1,6 @@
-package pgfsd.login;
+package pgfsd.services.login;
 
-import pgfsd.bean.User;
+import pgfsd.dto.User;
 
 public class LoginService {
 

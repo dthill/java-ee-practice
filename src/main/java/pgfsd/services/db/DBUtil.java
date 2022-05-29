@@ -8,9 +8,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class DBUtil {
 
-    public static final SessionFactory sessionFactory;
+    public static final SessionFactory sessionFactory = buildSessionFactory();
 
-    static {
+    private static SessionFactory buildSessionFactory() {
         try {
             StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
                     .configure("hibernate.cfg.xml")
@@ -18,7 +18,7 @@ public class DBUtil {
             Metadata metaData = new MetadataSources(standardRegistry)
                     .getMetadataBuilder()
                     .build();
-            sessionFactory = metaData
+            return metaData
                     .getSessionFactoryBuilder()
                     .build();
         } catch (Exception e) {

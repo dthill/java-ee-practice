@@ -9,12 +9,24 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import pgfsd.dto.SearchTerm;
 import pgfsd.entities.Product;
+import pgfsd.entities.ProductDetails;
 import pgfsd.services.db.DBUtil;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class ProductsService {
+
+    public Product getProductById(Integer id) {
+        SessionFactory factory = DBUtil.sessionFactory;
+        Session session = factory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> criteriaQuery = criteriaBuilder.createQuery(Product.class);
+        Root<Product> root = criteriaQuery.from(Product.class);
+        CriteriaQuery<Product> matchingProducts =
+                criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), id));
+        return session.createQuery(matchingProducts).getSingleResultOrNull();
+    }
 
     public List<Product> findProduct(SearchTerm searchTerm) {
         SessionFactory factory = DBUtil.sessionFactory;
@@ -70,4 +82,25 @@ public class ProductsService {
             return false;
         }
     }
+
+    public boolean updateProductDetails(Product product, ProductDetails productDetails){
+        SessionFactory factory = DBUtil.sessionFactory;
+        Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
+        productDetails.setProduct(product);
+        product.setDetails(productDetails);
+        try {
+            session.persist(productDetails);
+            session.merge(product);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            session.close();
+            return false;
+        }    }
 }

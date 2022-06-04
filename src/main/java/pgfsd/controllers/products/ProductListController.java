@@ -32,7 +32,23 @@ public class ProductListController extends HttpServlet {
             out.println("<tr><td></td><td>No products found with the given id or product name</td></tr>");
         } else {
             for (Product product : result) {
-                out.println("<tr><td>" + product.getId() + "</td><td>" + product.getName() + "</td><td>" + String.format("%.2f", product.getPrice()) + "</td></tr>");
+                StringBuilder res = new StringBuilder()
+                        .append("<tr><td>")
+                        .append(product.getId())
+                        .append("</td><td>")
+                        .append(product.getName())
+                        .append("</td><td>")
+                        .append(String.format("%.2f", product.getPrice()))
+                        .append("</td><td>")
+                        .append(String.format(
+                                "<a href=\"product-details.jsp?id=%d\">View Details</a>", product.getId())
+                        )
+                        .append("</td><td>")
+                        .append((String.format(
+                                "<a href=\"product-details-edit.jsp?id=%d\">Edit  Detils</a>", product.getId())
+                        ))
+                        .append("</td></tr>");
+                out.println(res);
             }
         }
     }

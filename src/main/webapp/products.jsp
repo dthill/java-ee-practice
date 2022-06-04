@@ -55,6 +55,8 @@
         <td>Product ID</td>
         <td>Product Name</td>
         <td>Product Price</td>
+        <td>View Details</td>
+        <td>Edit Details</td>
     </tr>
     <jsp:include page="/product-list-controller"></jsp:include>
 </table>

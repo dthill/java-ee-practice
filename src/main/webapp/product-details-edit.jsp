@@ -5,6 +5,7 @@
 </head>
 <body>
 <h1>Edit Product Details</h1>
+<% if(request.getParameter("id") != null){ %>
 <form action="product-details-edit.jsp" method="post">
     <table>
         <tr>
@@ -31,10 +32,9 @@
         </tr>
     </table>
 </form>
+<% } %>
 <table>
-    <tr>
         <jsp:include page="/product-details-controller"></jsp:include>
-    </tr>
 </table>
 </body>
 </html>

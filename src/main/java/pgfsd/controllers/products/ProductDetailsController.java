@@ -18,9 +18,10 @@ public class ProductDetailsController extends HttpServlet {
     private ProductsService productsService;
 
     @Override
-    public void init(){
+    public void init() {
         productsService = new ProductsService();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
@@ -36,25 +37,48 @@ public class ProductDetailsController extends HttpServlet {
             out.println("<tr><td>ERROR: Product not found. Please check the product id.</td></tr>");
             return;
         }
-        StringBuilder res = new StringBuilder()
-                .append("<tr><td>id</td><td>name</td></tr>")
-                .append("<tr><td>")
-                .append(product.getId())
-                .append("</td><td>")
-                .append(product.getName())
-                .append("</td></tr>");
+        String res = htmlProductwithDetails(product);
         out.println(res);
-        request.getSession().setAttribute("edit-product",product);
+        request.getSession().setAttribute("edit-product", product);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
+        PrintWriter out = response.getWriter();
         Product product = (Product) httpSession.getAttribute("edit-product");
+        httpSession.removeAttribute("edit-product");
         ProductDetails productDetails = new ProductDetails();
         productDetails.setDescription(request.getParameter("description"));
         productDetails.setOrigin(request.getParameter("origin"));
-        productDetails.setOrigin(request.getParameter("transport"));
+        productDetails.setTransport(request.getParameter("transport"));
         boolean success = productsService.updateProductDetails(product, productDetails);
+        if (success) {
+            out.println("Product details updated successfully");
+            out.println(htmlProductwithDetails(product));
+        } else {
+            out.println("Error updating product details please try again");
+        }
+    }
+
+    private String htmlProductwithDetails(Product product) {
+        String res = "<tr><td>id</td><td>name</td><td>description</td><td>origin</td><td>transport</td></tr>" +
+                "<tr><td>" +
+                product.getId() +
+                "</td><td>" +
+                product.getName() +
+                "</td>";
+        ProductDetails productDetails = product.getDetails();
+        if (productDetails != null) {
+            res += "<td>" +
+                    productDetails.getDescription() +
+                    "</td><td>" +
+                    productDetails.getOrigin() +
+                    "</td><td>" +
+                    productDetails.getTransport() +
+                    "</td>";
+        }
+        res += "</tr>";
+        return res;
     }
 }

@@ -45,7 +45,7 @@ public class ProductListController extends HttpServlet {
                         )
                         .append("</td><td>")
                         .append((String.format(
-                                "<a href=\"product-details-edit.jsp?id=%d\">Edit  Detils</a>", product.getId())
+                                "<a href=\"product-details-edit.jsp?id=%d\">Edit  Details</a>", product.getId())
                         ))
                         .append("</td></tr>");
                 out.println(res);

@@ -83,24 +83,30 @@ public class ProductsService {
         }
     }
 
-    public boolean updateProductDetails(Product product, ProductDetails productDetails){
+    public boolean updateProductDetails(Product product, ProductDetails productDetails) {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
-        productDetails.setProduct(product);
-        product.setDetails(productDetails);
         try {
-            session.persist(productDetails);
+            if (productDetails == null || product == null) {
+                throw new HibernateException("product or productDetails provided are null");
+            }
+            productDetails.setProduct(product);
+            productDetails.setId(product.getId());
+            product.setDetails(productDetails);
+            session.merge(productDetails);
             session.merge(product);
             transaction.commit();
             session.close();
             return true;
         } catch (HibernateException e) {
+            System.out.println(e.getMessage());
             System.out.println(Arrays.toString(e.getStackTrace()));
             if (transaction != null) {
                 transaction.rollback();
             }
             session.close();
             return false;
-        }    }
+        }
+    }
 }

@@ -12,7 +12,6 @@ public class Product {
     private double price;
 
     @OneToOne
-    @JoinColumn(name = "id")
     private ProductDetails details;
 
     public double getPrice() {
